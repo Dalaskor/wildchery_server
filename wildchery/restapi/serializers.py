@@ -17,7 +17,6 @@ class CategorySerializer(serializers.HyperlinkedModelSerializer):
 
 
 class SubCategorySerializer(serializers.HyperlinkedModelSerializer):
-    # category = serializers.StringRelatedField(read_only=True)
     category = serializers.SlugRelatedField(
         slug_field='name',
         queryset = Category.objects
@@ -30,7 +29,11 @@ class SubCategorySerializer(serializers.HyperlinkedModelSerializer):
 
 
 class ProductSerializer(serializers.HyperlinkedModelSerializer):
-    sub_category = serializers.StringRelatedField(source='sub_category.name')
+    # sub_category = serializers.StringRelatedField(source='sub_category.name')
+    sub_category = serializers.SlugRelatedField(
+        slug_field='name',
+        queryset = SubCategory.objects
+    )
 
     class Meta:
         model = Product
