@@ -25,11 +25,9 @@ class SubCategorySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = SubCategory
         fields = ['id', 'name', 'category'] 
-        # fields = '__all__' 
 
 
 class ProductSerializer(serializers.HyperlinkedModelSerializer):
-    # sub_category = serializers.StringRelatedField(source='sub_category.name')
     sub_category = serializers.SlugRelatedField(
         slug_field='name',
         queryset = SubCategory.objects
@@ -38,4 +36,15 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Product
         fields = ['name', 'description', 'price', 'sub_category']
+
+
+class ProductPhotoSerializer(serializers.HyperlinkedModelSerializer):
+    sub_category = serializers.SlugRelatedField(
+        slug_field='id',
+        queryset = Product.objects
+    )
+
+    class Meta:
+        model = ProductPhoto
+        fields = ['image', 'product']
 

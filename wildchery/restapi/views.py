@@ -75,7 +75,7 @@ class SubCategoryDetailView(RetrieveUpdateDestroyAPIView):
 
 
 # Product Model
-class ProductListView(ListAPIView):
+class ProductListView(ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
@@ -83,6 +83,18 @@ class ProductListView(ListAPIView):
 
 class ProductDetailView(RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+
+# ProductPhoto Model
+class ProductPhotoListView(ListCreateAPIView):
+    queryset = ProductPhoto.objects.all()
+    serializer_class = ProductSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+class ProductPhotoDetailView(RetrieveUpdateDestroyAPIView):
+    queryset = ProductPhoto.objects.all()
     serializer_class = ProductSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
