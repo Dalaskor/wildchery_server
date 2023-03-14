@@ -74,6 +74,19 @@ class SubCategoryDetailView(RetrieveUpdateDestroyAPIView):
     permission_classes = [permissions.IsAdminUser]
 
 
+# Product Model
+class ProductListView(ListAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+class ProductDetailView(RetrieveUpdateDestroyAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+
+
 # API_ROOT
 @api_view(['GET'])
 def api_root(request, format=None):
