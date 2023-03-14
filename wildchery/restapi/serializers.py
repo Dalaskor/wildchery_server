@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import userProfile
+from .models import *
 
 
 class userProfileSerializer(serializers.ModelSerializer):
@@ -8,3 +8,17 @@ class userProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = userProfile
         fields = '__all__'
+
+
+class CategorySerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Category
+        fields = ['name']
+
+
+class SubCategorySerializer(serializers.HyperlinkedModelSerializer):
+    category = serializers.ReadOnlyField(source='category.name')
+
+    class Meta:
+        model = SubCategory
+        fields = ['name'] 
