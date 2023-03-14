@@ -17,5 +17,8 @@ urlpatterns = [
     path("all-subcategories/<int:pk>", SubCategoryRetrieveView.as_view(), name="all-subcategories/index"),
     path("new-subcategory", SubCategoryCreateView.as_view(), name="new-subcategory"),
     path("subcategory/<int:pk>", SubCategoryDetailView.as_view(), name="subcategory"),
+    # Product
+    path("all-products", ProductListView.as_view(), name="all-products"),
+    path("product/<int:pk>", ProductDetailView.as_view(), name="product"),
 ]
 
