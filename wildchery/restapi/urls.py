@@ -20,5 +20,8 @@ urlpatterns = [
     # Product
     path("all-products", ProductListView.as_view(), name="all-products"),
     path("product/<int:pk>", ProductDetailView.as_view(), name="product"),
+    # ProductPhoto
+    path("all-productphotos", ProductPhotoListView.as_view(), name="all-productphotos"),
+    path("productphoto/<int:pk>", ProductPhotoDetailView.as_view(), name="productphoto"),
 ]
 

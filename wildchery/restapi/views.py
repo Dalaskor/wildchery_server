@@ -106,5 +106,7 @@ def api_root(request, format=None):
         'profiles': reverse('all-profiles', request=request, format=format),
         'categories': reverse('all-categories', request=request, format=format),
         'subcategories': reverse('all-subcategories', request=request, format=format),
+        'products': reverse('all-products', request=request, format=format),
+        'productphotos': reverse('all-productphotos', request=request, format=format),
     })
 
