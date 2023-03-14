@@ -13,12 +13,26 @@ class userProfileSerializer(serializers.ModelSerializer):
 class CategorySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Category
-        fields = ['name']
+        fields = ['id', 'name']
 
 
 class SubCategorySerializer(serializers.HyperlinkedModelSerializer):
-    category = serializers.ReadOnlyField(source='category.name')
+    # category = serializers.StringRelatedField(read_only=True)
+    category = serializers.SlugRelatedField(
+        slug_field='name',
+        queryset = Category.objects
+    )
 
     class Meta:
         model = SubCategory
-        fields = ['name'] 
+        fields = ['id', 'name', 'category'] 
+        # fields = '__all__' 
+
+
+class ProductSerializer(serializers.HyperlinkedModelSerializer):
+    sub_category = serializers.StringRelatedField(source='sub_category.name')
+
+    class Meta:
+        model = Product
+        fields = ['name', 'description', 'price', 'sub_category']
+

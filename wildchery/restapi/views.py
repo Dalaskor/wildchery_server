@@ -1,4 +1,4 @@
-from rest_framework.generics import (ListCreateAPIView, RetrieveUpdateDestroyAPIView, ListAPIView, CreateAPIView)
+from rest_framework.generics import (ListCreateAPIView, RetrieveUpdateDestroyAPIView, ListAPIView, CreateAPIView, RetrieveAPIView,)
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
@@ -37,6 +37,12 @@ class CategoryCreateView(CreateAPIView):
     permission_classes = [permissions.IsAdminUser]
 
 
+class CategoryRetrieveView(RetrieveUpdateDestroyAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
 class CategoryDetailView(RetrieveUpdateDestroyAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
@@ -55,9 +61,11 @@ class SubCategoryCreateView(CreateAPIView):
     serializer_class = SubCategorySerializer
     permission_classes = [permissions.IsAdminUser]
 
-    def perform_create(self, serializer):
-        category = self.request.category
-        serializer.save(category=category)
+
+class SubCategoryRetrieveView(RetrieveAPIView):
+    queryset = SubCategory.objects.all()
+    serializer_class = SubCategorySerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
 class SubCategoryDetailView(RetrieveUpdateDestroyAPIView):
@@ -72,5 +80,6 @@ def api_root(request, format=None):
     return Response({
         'profiles': reverse('all-profiles', request=request, format=format),
         'categories': reverse('all-categories', request=request, format=format),
+        'subcategories': reverse('all-subcategories', request=request, format=format),
     })
 
