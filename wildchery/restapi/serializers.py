@@ -48,3 +48,14 @@ class ProductPhotoSerializer(serializers.HyperlinkedModelSerializer):
         model = ProductPhoto
         fields = ['image', 'product']
 
+
+class CartSerializer(serializers.HyperlinkedModelSerializer):
+    user = serializers.SlugRelatedField(
+        slug_field='id',
+        queryset = userProfile.objects
+    )
+
+    class Meta:
+        model = Cart
+        fields = ['user']
+
